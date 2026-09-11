@@ -1,1 +1,40 @@
+@model SafeVault.Models.HomeViewModel
+@{
+    ViewData["Title"] = "SafeVault";
+}
 
+<h1>SafeVault</h1>
+<p>Secure-input, authentication, authorization, and security testing capstone.</p>
+
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>Signed in as: <strong>@User.Identity.Name</strong></p>
+    @if (User.IsInRole("Admin"))
+    {
+        <p><a href="/Admin">Open Admin Area</a></p>
+    }
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit">Sign out</button>
+    </form>
+}
+else
+{
+    <p><a href="/Account/Login">Login</a> | <a href="/Account/Register">Register</a></p>
+}
+
+<hr />
+<h2>Feedback / XSS Test</h2>
+<form asp-controller="Home" asp-action="Feedback" method="post">
+    @Html.AntiForgeryToken()
+    <label for="message">Message</label>
+    <textarea id="message" name="Message" maxlength="1000"></textarea>
+    <button type="submit">Submit</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.Feedback))
+{
+    <h3>Stored/rendered message</h3>
+    <!-- Important: never replace the next line with Html.Raw(Model.Feedback). -->
+    <p id="feedback-output">@Model.Feedback</p>
+}
