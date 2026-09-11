@@ -1,0 +1,19 @@
+@model SafeVault.Models.RegisterInput
+@{
+    ViewData["Title"] = "Register";
+}
+<h1>Create SafeVault account</h1>
+<form asp-action="Register" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Username"></label>
+    <input asp-for="Username" autocomplete="username" />
+    <span asp-validation-for="Username"></span>
+    <label asp-for="Email"></label>
+    <input asp-for="Email" autocomplete="email" />
+    <span asp-validation-for="Email"></span>
+    <label asp-for="Password"></label>
+    <input asp-for="Password" autocomplete="new-password" />
+    <span asp-validation-for="Password"></span>
+    <button type="submit">Create account</button>
+</form>

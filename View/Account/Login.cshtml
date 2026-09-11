@@ -1,0 +1,16 @@
+@model SafeVault.Models.LoginInput
+@{
+    ViewData["Title"] = "Login";
+}
+<h1>Login</h1>
+<form asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Username"></label>
+    <input asp-for="Username" autocomplete="username" />
+    <span asp-validation-for="Username"></span>
+    <label asp-for="Password"></label>
+    <input asp-for="Password" autocomplete="current-password" />
+    <span asp-validation-for="Password"></span>
+    <button type="submit">Sign in</button>
+</form>
