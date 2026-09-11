@@ -1,1 +1,6 @@
-
+@{
+    ViewData["Title"] = "Admin";
+}
+<h1>Admin Area</h1>
+<p>This page is protected by role-based authorization.</p>
+<p>Current role: @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</p>
